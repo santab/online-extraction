@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "invoice-intake-output",
+  "type": "object",
+  "properties": {
+    "invoice_number": {
+      "type": "object",
+      "properties": {
+        "value": { "type": "string" },
+        "needs_review": { "type": "boolean" }
+      },
+      "required": ["value", "needs_review"]
+    },
+    "vendor_name": {
+      "type": "object",
+      "properties": {
+        "value": { "type": "string" },
+        "needs_review": { "type": "boolean" }
+      },
+      "required": ["value", "needs_review"]
+    },
+    "invoice_date": {
+      "type": "object",
+      "properties": {
+        "value": { "type": "string" },
+        "needs_review": { "type": "boolean" }
+      },
+      "required": ["value", "needs_review"]
+    },
+    "total_amount": {
+      "type": "object",
+      "properties": {
+        "value": { "type": "number" },
+        "needs_review": { "type": "boolean" }
+      },
+      "required": ["value", "needs_review"]
+    },
+    "line_items": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "description": { "type": "string" },
+              "amount": { "type": "number" }
+            },
+            "required": ["description", "amount"]
+          }
+        },
+        "needs_review": { "type": "boolean" }
+      },
+      "required": ["value", "needs_review"]
+    }
+  },
+  "required": ["invoice_number", "vendor_name", "total_amount"]
+}

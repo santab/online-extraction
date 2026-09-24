@@ -1,0 +1,53 @@
+# Example profile — declares what a use case actually configures, without
+# touching pipeline code. Model provider/name below are placeholders: model
+# choice is intentionally per-profile (see architecture.md open decisions),
+# so set these to whatever provider/model this deployment should use.
+
+name: invoice-intake
+
+modalities:
+  - pdf
+  - excel
+  - image
+  - docx
+
+output_schema_path: schemas/invoice-intake.output.schema.json
+# resolution_schema_path omitted -> falls back to the shared default at
+# extraction_agent/schemas/resolution.schema.json
+
+confidence_threshold: 0.7
+max_repair_turns: 1
+
+models:
+  triage:
+    provider: anthropic
+    name: claude-sonnet-5
+  merge:
+    provider: anthropic
+    name: claude-sonnet-5
+  pdf:
+    provider: anthropic
+    name: claude-sonnet-5
+  excel:
+    provider: anthropic
+    name: claude-sonnet-5
+  image:
+    provider: anthropic
+    name: claude-sonnet-5
+  docx:
+    provider: anthropic
+    name: claude-sonnet-5
+
+# Each path pins an exact skill version — a skills/<agent>/v<N>/ directory,
+# whose one child directory (named after the skill) holds SKILL.md, per
+# deepagents' Agent Skills convention. Bumping a skill for one profile means
+# adding a new vN/ dir and repointing only this profile's path — other
+# profiles keep resolving to whichever version they still reference, so one
+# tenant's edit can't silently regress another's.
+skills:
+  triage: ../skills/triage/v1
+  merge: ../skills/merge/v1
+  pdf: ../skills/pdf/v1
+  excel: ../skills/excel/v1
+  image: ../skills/image/v1
+  docx: ../skills/docx/v1
